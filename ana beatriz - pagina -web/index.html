@@ -1,50 +1,413 @@
-<h1>Meu blog da Copa</h1>
-<p>Vou compartilhar notícias, curiosidades e momentos marcantes da Copa do Mundo.</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog da Copa do Mundo</title>
+    <style>
+        :root {
+            --verde: #0b6623;
+            --amarelo: #ffdf00;
+            --azul: #002776;
+            --branco: #ffffff;
+        }
 
-<h2>Minha primeira postagem</h2>
-<p>Por: Ana Beatriz</p>
-<p>Bem-vindos ao meu blog! Aqui vou falar sobre os jogos, os jogadores e as emoções da Copa do Mundo.</p>
-<header>
-    <h1>Blog da Copa do Mundo ⚽</h1>
-    <p>Todas as notícias, curiosidades e emoções do maior torneio de futebol do planeta.</p>
-</header>
+        * {
+            box-sizing: border-box;
+        }
 
-<main>
-    <h2>Primeira Rodada</h2>
-    <p>Por: Seu Nome</p>
-    <p>
-        A Copa do Mundo reúne as melhores seleções do mundo em busca do título mais importante do futebol.
-    </p>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(180deg, #0b6623 0%, #0f7d2f 100%);
+            color: var(--branco);
+            overflow-x: hidden;
+        }
 
-    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018" 
-         alt="Bola de futebol em campo" width="400">
-</main>body {
-    background-color: #0b6623;
-    font-family: Arial, sans-serif;
-}
+        .bandeirinhas-laterais {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 72px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-header {
-    background-color: #ffdf00;
-    color: #002776;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    border-radius: 10px;
-}
+        .bandeirinhas-laterais.esquerda {
+            left: 0;
+        }
 
-main {
-    background-color: white;
-    color: #0b6623;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 10px;
-}
+        .bandeirinhas-laterais.direita {
+            right: 0;
+        }
 
-h1 {
-    margin: 0;
-}
+        .bandeirinhas-laterais span {
+            font-size: 1.25rem;
+            background: rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            padding: 6px 8px;
+            margin: 4px 0;
+        }
 
-h2 {
-/    color: #002776;
+        .conteudo {
+            position: relative;
+            z-index: 2;
+            padding-inline: 88px;
+        }
+
+        .faixa-bandeirinhas {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .bandeirinha {
+            font-size: 1.35rem;
+            background: rgba(255, 255, 255, 0.18);
+            padding: 6px 10px;
+            border-radius: 999px;
+        }
+
+        header {
+            max-width: 1100px;
+            margin: 20px auto 0;
+            padding: 28px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--amarelo), #fff3a0);
+            color: var(--azul);
+            border-radius: 24px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.4rem);
+        }
+
+        header p {
+            margin: 12px 0 0;
+            font-size: 1.05rem;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 24px auto 40px;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.98);
+            color: #163b1f;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16);
+        }
+
+        .postagem {
+            display: grid;
+            gap: 14px;
+        }
+
+        .postagem h2,
+        .galeria h2 {
+            color: var(--azul);
+            margin: 0;
+        }
+
+        .resumo {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .imagem-destaque {
+            width: 100%;
+            max-height: 420px;
+            object-fit: cover;
+            border-radius: 18px;
+        }
+
+        .galeria {
+            margin-top: 24px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .paises {
+            margin-top: 24px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .album {
+            margin-top: 24px;
+            display: grid;
+            gap: 16px;
+        }
+
+        .grade-album {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 16px;
+        }
+
+        .mini-card {
+            background: #f5f8f6;
+            border-radius: 18px;
+            padding: 16px;
+            border: 1px solid rgba(0, 39, 118, 0.08);
+        }
+
+        .mini-card h3 {
+            margin: 0 0 8px;
+            color: var(--azul);
+        }
+
+        .mini-card p {
+            margin: 0;
+            line-height: 1.5;
+            color: #163b1f;
+        }
+
+        .grade-paises {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 16px;
+        }
+
+        .pais-card {
+            background: #f5f8f6;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 39, 118, 0.08);
+            display: grid;
+        }
+
+        .pais-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pais-card .texto {
+            padding: 14px;
+            color: #163b1f;
+        }
+
+        .pais-card h3 {
+            margin: 0 0 8px;
+            color: var(--azul);
+        }
+
+        .pais-card p {
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .grade-imagens {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .foto {
+            margin: 0;
+            background: #f5f8f6;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 39, 118, 0.08);
+        }
+
+        .foto img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .foto figcaption {
+            padding: 12px 14px 14px;
+            font-size: 0.96rem;
+        }
+
+        @media (max-width: 640px) {
+            header,
+            .card {
+                border-radius: 18px;
+            }
+
+            .faixa-bandeirinhas {
+                gap: 6px;
+            }
+
+            .bandeirinhas-laterais {
+                width: 48px;
+                padding: 12px 0;
+            }
+
+            .bandeirinhas-laterais span {
+                font-size: 1rem;
+                padding: 4px 6px;
+            }
+
+            .conteudo {
+                padding-inline: 56px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="bandeirinhas-laterais esquerda" aria-hidden="true">
+        <span>🇧🇷</span>
+        <span>🇦🇷</span>
+        <span>🇫🇷</span>
+        <span>🇩🇪</span>
+        <span>🇯🇵</span>
+        <span>🇲🇦</span>
+    </aside>
+
+    <aside class="bandeirinhas-laterais direita" aria-hidden="true">
+        <span>🇪🇸</span>
+        <span>🇵🇹</span>
+        <span>🇮🇹</span>
+        <span>🇳🇱</span>
+        <span>🇸🇳</span>
+        <span>🇨🇭</span>
+    </aside>
+
+    <div class="conteudo">
+    <div class="faixa-bandeirinhas" aria-label="Faixa de bandeirinhas decorativas">
+        <span class="bandeirinha">🇧🇷</span>
+        <span class="bandeirinha">🇦🇷</span>
+        <span class="bandeirinha">🇫🇷</span>
+        <span class="bandeirinha">🇩🇪</span>
+        <span class="bandeirinha">🇪🇸</span>
+        <span class="bandeirinha">🇵🇹</span>
+        <span class="bandeirinha">🇮🇹</span>
+        <span class="bandeirinha">🇧🇷</span>
+    </div>
+
+    <header>
+        <h1>Blog da Copa do Mundo ⚽</h1>
+        <p>Todas as notícias, curiosidades e emoções do maior torneio de futebol do planeta.</p>
+    </header>
+
+    <main>
+        <section class="card postagem">
+            <h2>Primeira Rodada</h2>
+            <p><strong>Por:</strong> Ana Beatriz</p>
+            <p class="resumo">
+                A Copa do Mundo reúne as melhores seleções do mundo em busca do título mais importante do futebol.
+                Aqui você encontra gols, histórias e momentos marcantes com muita energia de torcida.
+            </p>
+
+            <img
+                class="imagem-destaque"
+                src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80"
+                alt="Bola de futebol em campo"
+            >
+
+            <div class="galeria">
+                <h2>Galeria da torcida</h2>
+                <div class="grade-imagens">
+                    <figure class="foto">
+                        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=900&q=80" alt="Torcida em estádio de futebol">
+                        <figcaption>Torcida vibrando no estádio.</figcaption>
+                    </figure>
+                    <figure class="foto">
+                        <img src="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?auto=format&fit=crop&w=900&q=80" alt="Jogadores em partida de futebol">
+                        <figcaption>Disputa intensa dentro de campo.</figcaption>
+                    </figure>
+                    <figure class="foto">
+                        <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?auto=format&fit=crop&w=900&q=80" alt="Bandeiras de torcidas em clima de copa">
+                        <figcaption>Bandeiras e cores para representar os países.</figcaption>
+                    </figure>
+                    <figure class="foto">
+                        <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?auto=format&fit=crop&w=900&q=80" alt="Estádio iluminado à noite">
+                        <figcaption>Estádio iluminado para a grande festa do futebol.</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="paises">
+                <h2>Países e suas culturas</h2>
+                <div class="grade-paises">
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?auto=format&fit=crop&w=900&q=80" alt="Cultura do Brasil com cores vibrantes">
+                        <div class="texto">
+                            <h3>🇧🇷 Brasil</h3>
+                            <p>Festa, música, samba, futebol e muita alegria fazem parte da cultura brasileira.</p>
+                        </div>
+                    </article>
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1503197979108-c824168d51c1?auto=format&fit=crop&w=900&q=80" alt="Cultura da Argentina com dança e tradição">
+                        <div class="texto">
+                            <h3>🇦🇷 Argentina</h3>
+                            <p>Tango, chimarrão e paixão pelo futebol marcam a identidade argentina.</p>
+                        </div>
+                    </article>
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=900&q=80" alt="Cultura da França com monumentos e arte">
+                        <div class="texto">
+                            <h3>🇫🇷 França</h3>
+                            <p>Arte, moda, gastronomia e monumentos históricos são símbolos da cultura francesa.</p>
+                        </div>
+                    </article>
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1460714234656-1f59f3b2f1c2?auto=format&fit=crop&w=900&q=80" alt="Cultura da Alemanha com arquitetura e tradição">
+                        <div class="texto">
+                            <h3>🇩🇪 Alemanha</h3>
+                            <p>Tradição, festas populares, arquitetura e organização são marcas do país.</p>
+                        </div>
+                    </article>
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=900&q=80" alt="Cultura do Japão com templos e delicadeza">
+                        <div class="texto">
+                            <h3>🇯🇵 Japão</h3>
+                            <p>Respeito, tecnologia, culinária e tradição convivem lado a lado na cultura japonesa.</p>
+                        </div>
+                    </article>
+                    <article class="pais-card">
+                        <img src="https://images.unsplash.com/photo-1489395131208-4b57c593c8a4?auto=format&fit=crop&w=900&q=80" alt="Cultura do Marrocos com mercados e cores">
+                        <div class="texto">
+                            <h3>🇲🇦 Marrocos</h3>
+                            <p>Mercados, cores fortes, artesanato e sabores marcantes representam o país.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <div class="album">
+                <h2>Álbum da Copa e figurinhas</h2>
+                <p class="resumo">
+                    O álbum da Copa do Mundo é uma coleção muito querida pelos torcedores. Ele traz páginas com as seleções,
+                    escudos, jogadores e espaços para colar as figurinhas. Muita gente gosta de comprar, trocar e completar o álbum.
+                </p>
+                <div class="grade-album">
+                    <article class="mini-card">
+                        <h3>O que é o álbum?</h3>
+                        <p>É um caderno de coleção onde aparecem os países participantes e os espaços para as figurinhas.</p>
+                    </article>
+                    <article class="mini-card">
+                        <h3>Como são as figurinhas?</h3>
+                        <p>Elas mostram jogadores, mascotes, escudos e símbolos da Copa, deixando a coleção colorida e divertida.</p>
+                    </article>
+                    <article class="mini-card">
+                        <h3>Por que trocar?</h3>
+                        <p>Trocar repetidas com amigos ajuda a completar o álbum mais rápido e torna a brincadeira mais legal.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+</body>
+</html>
